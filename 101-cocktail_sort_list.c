@@ -35,41 +35,43 @@ void swap(listint_t **list, listint_t *A, listint_t *B)
 void cocktail_sort_list(listint_t **list)
 {
 	listint_t *current, *next, *prev;
+	/*
+	 * since in the forward bubble, the last index will be the max
+	 * of the list, to improve performance, we set a upper boundary
+	 * so the algorithm never reach there again. Same for the backward
+	 * bubble.
+	 */
+	listint_t *lower, *upper;
 	int swapped = 0;
 
 	do {
 		current = *list;
-		/* do forward bubble */
-		while (current && current->next)
-		{
+		while (current && current->next && current->next != upper)
+		{ /* do forward bubble */
 			next = current->next;
 			if (current->n > next->n)
 			{
-				/* do swap */
 				swap(list, current, next);
 				swapped = 1;
 				continue;
 			}
 			current = current->next;
 		}
-		
-		/* will a swap still be necessary? */
-		if (!swapped)
+		upper = current;
+		if (!swapped) /* will a swap still be necessary? */
 			break;
 		swapped = 0;
-
-		/* do backward swap */
-		while (current && current->prev)
-		{
+		while (current && current->prev && current->prev != lower)
+		{ /* do backward bubble */
 			prev = current->prev;
 			if (prev->n > current->n)
 			{
-				/* do swap */
 				swap(list, prev, current);
 				swapped = 1;
 				continue;
 			}
 			current = current->prev;
 		}
+		lower = current;
 	} while (swapped);
 }
