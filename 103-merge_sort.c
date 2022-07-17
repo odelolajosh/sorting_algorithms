@@ -56,10 +56,10 @@ void merge_conquer(int *array, size_t low, size_t middle, size_t high, int *work
 
 	while (current1 <= middle)
 		working[current3++] = array[current1++];
-	
+
 	while (current2 <= high)
 		working[current3++] = array[current2++];
-	
+
 	for (i = low; i <= high; i++)
 		array[i] = working[i];
 
