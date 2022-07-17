@@ -47,10 +47,9 @@ size_t middle, size_t high, int *working)
 	current2 = middle + 1;
 	while (current1 <= middle && current2 <= high)
 	{
-		if (array[current1] < array[current2])
+		if (array[current1] <= array[current2])
 			working[current3++] = array[current1++];
-
-		if (array[current2] < array[current1])
+		else
 			working[current3++] = array[current2++];
 	}
 
