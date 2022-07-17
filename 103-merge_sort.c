@@ -1,18 +1,19 @@
 #include "sort.h"
 #include <stdio.h>
 
-
 /**
- * print_larray - Prints an array of integers exclusively
- * bounded
+ * print_larray - Prints an array of integers with exclusive
+ * boundaries
+ * @s: remark
  * @array: The array to be printed
  * @low: lower boundary
  * @high: upper boundary
  */
-void print_larray(const int *array, size_t low, size_t high)
+void print_larray(char *s, const int *array, size_t low, size_t high)
 {
 	size_t i;
 
+	printf("[%s]: ", s);
 	i = low;
 	while (array && i <= high)
 	{
@@ -33,15 +34,14 @@ void print_larray(const int *array, size_t low, size_t high)
  * @high: upper boundary
  * @working: working array
  */
-void merge_conquer(int *array, size_t low, size_t middle, size_t high, int *working)
+void merge_conquer(int *array, size_t low,
+size_t middle, size_t high, int *working)
 {
 	size_t current1, current2, current3, i;
 
 	printf("Merging...\n");
-	printf("[left]: ");
-	print_larray(array, low, middle);
-	printf("[right]: ");
-	print_larray(array, middle + 1, high);
+	print_larray("left", array, low, middle);
+	print_larray("right", array, middle + 1, high);
 
 	current1 = current3 = low;
 	current2 = middle + 1;
@@ -63,8 +63,7 @@ void merge_conquer(int *array, size_t low, size_t middle, size_t high, int *work
 	for (i = low; i <= high; i++)
 		array[i] = working[i];
 
-	printf("[Done]: ");
-	print_larray(working, low, high);
+	print_larray("Done", working, low, high);
 }
 
 /**
