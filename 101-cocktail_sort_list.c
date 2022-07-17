@@ -44,13 +44,14 @@ void cocktail_sort_list(listint_t **list)
 	listint_t *lower, *upper;
 	int swapped = 0;
 
-	if (!(*list))
+	if (!list || !(*list) || !((*list)->next))
 		return;
 
 	do {
 		current = *list;
+		/* do forward bubble */
 		while (current && current->next && current->next != upper)
-		{ /* do forward bubble */
+		{
 			next = current->next;
 			if (current->n > next->n)
 			{
@@ -61,11 +62,13 @@ void cocktail_sort_list(listint_t **list)
 			current = current->next;
 		}
 		upper = current;
-		if (!swapped) /* will a swap still be necessary? */
+		/* will a swap still be necessary? */
+		if (!swapped)
 			break;
 		swapped = 0;
+		/* do backward bubble */
 		while (current && current->prev && current->prev != lower)
-		{ /* do backward bubble */
+		{
 			prev = current->prev;
 			if (prev->n > current->n)
 			{
