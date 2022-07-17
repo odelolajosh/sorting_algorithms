@@ -31,18 +31,21 @@ void swap(listint_t **list, listint_t *A, listint_t *B)
  * cocktail_sort_list - sorts a doubly linked list of integers in
  * ascending order using the Cocktail shaker sort algorithm
  * @list: given list
+ *
+ * [*] Performance update
+ * since in the forward bubble, the last index will be the max
+ * of the list, to improve performance, we set a upper boundary
+ * so the algorithm never reach there again. Same for the backward
+ * bubble.
  */
 void cocktail_sort_list(listint_t **list)
 {
 	listint_t *current, *next, *prev;
-	/*
-	 * since in the forward bubble, the last index will be the max
-	 * of the list, to improve performance, we set a upper boundary
-	 * so the algorithm never reach there again. Same for the backward
-	 * bubble.
-	 */
 	listint_t *lower, *upper;
 	int swapped = 0;
+
+	if (!(*list))
+		return;
 
 	do {
 		current = *list;
