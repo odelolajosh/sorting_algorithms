@@ -13,6 +13,9 @@ void shell_sort(int *array, size_t size)
 	size_t i, j, h;
 	int temp, didSwap = 0;
 
+	if (size < 2)
+		return;
+
 	/* get initial maximum gap (h) */
 	h = 1;
 	while (h < size)
@@ -20,9 +23,9 @@ void shell_sort(int *array, size_t size)
 
 	while (h >= 1)
 	{
+		didSwap = 0;
 		for (i = h; i < size; i++)
 		{
-			didSwap = 0;
 			for (j = i; j >= h && array[j] < array[j - h]; j -= h)
 			{
 				temp = array[j];
