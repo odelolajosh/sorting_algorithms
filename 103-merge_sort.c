@@ -68,6 +68,7 @@ size_t middle, size_t high, int *working)
 /**
  * merge_divide - implements merge sort
  * divides and conquer technique
+ * [low ... middle] and [middle + 1, ..., high]
  * @array: given array
  * @low: lower boundary
  * @high: upper boundary
@@ -90,7 +91,6 @@ void merge_divide(int *array, size_t low, size_t high, int *working)
 /**
  * merge_sort - sorts an array of integers in
  * ascending order using the Merge sort algorithm
- * [low ... middle] and [middle + 1, ..., high]
  * @array: given array
  * @size: size of array
  */
