@@ -3,7 +3,7 @@
 
 /**
  * print_sequence - prints an array
- * @array: given arrat
+ * @array: given array
  * @low: lower boundary
  * @high: upper boundary
  */
