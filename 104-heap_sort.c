@@ -1,110 +1,79 @@
 #include "sort.h"
-
+#include <stdio.h>
 /**
- * swap - swap two elements in an array and prints the array
- * @array: given array
- * @e1: first element
- * @e2: second element
- * @size: array size
+ * swap - swap the elements in the array
+ * @array: array
+ * @curr_index: current index
+ * @p_index: pivot index
  */
-void swap(int *array, size_t e1, size_t e2, size_t size)
+
+void swap(int *array, int curr_index, int p_index)
 {
 	int temp;
 
-	temp = array[e1];
-	array[e1] = array[e2];
-	array[e2] = temp;
-	print_array(array, size);
+	temp = array[curr_index];
+	array[curr_index] = array[p_index];
+	array[p_index] = temp;
 }
 
 /**
- * sift_down - sifts down an ex-parent to its appropriate position
- * in the max heap
- * @array: given array
- * @index: current index to heapify
- * @upper: inclusive upper boundary
- * @size: array size
+ * heapify - creates a max heap
+ * @array: array of integers
+ * @size: size of array
+ * @parent_idx: parent node index
+ * @t_size: Total size of array
  */
-void sift_down(int *array, size_t index, size_t upper, size_t size)
+
+void heapify(int *array, int size, int parent_idx, int t_size)
 {
-	size_t left, right, max;
+	int largest_idx, lt_child_idx, rt_child_idx, tmp;
 
-	/* index is a leaf */
-	if (index >= upper)
-		return;
+	largest_idx = parent_idx;
+	lt_child_idx = (parent_idx * 2) + 1;
+	rt_child_idx = (parent_idx * 2) + 2;
 
-	left = 2 * index + 1;
-	right = 2 * index + 2;
+	if (lt_child_idx < size && array[lt_child_idx] > array[largest_idx])
+		largest_idx = lt_child_idx;
 
-	if (left > upper)
-		return;
+	if (rt_child_idx < size && array[rt_child_idx] > array[largest_idx])
+		largest_idx = rt_child_idx;
 
-	max = left;
-	if (right <= upper && array[right] > array[left])
-		max = right;
-
-	if (array[index] < array[max])
+	if (largest_idx != parent_idx)
 	{
-		swap(array, index, max, size);
-		sift_down(array, max, upper, size);
+		tmp = array[parent_idx];
+		array[parent_idx] = array[largest_idx];
+		array[largest_idx] = tmp;
+		print_array(array, t_size);
+		heapify(array, size, largest_idx, t_size);
 	}
 }
 
 /**
- * heapify - makes a sub-array (0 .. upper) in an array a binary heap
- * @array: given array
- * @index: current index to heapify
- * @upper: inclusive upper boundary
- * @size: array size
+ * heap_sort - Implementation of heap_sort algorithm
+ * @array: array of integers
+ * @size: size of array
  */
-void heapify(int *array, size_t index, size_t upper, size_t size)
-{
-	size_t current = index, parent, max, brother;
 
-	while (current > 0)
-	{
-		parent = (current - 1) / 2;
-		brother = 2 * parent + 1;
-		if (brother == current)
-			brother++;
-
-		max = current;
-		if (brother <= upper && array[brother] > array[current])
-			max = brother;
-
-		if (array[max] > array[parent])
-		{
-			swap(array, max, parent, size);
-			sift_down(array, max, upper, size);
-		}
-		else
-		{
-			break;
-		}
-
-		current = parent;
-	}
-
-	if (index > 0)
-		heapify(array, index - 1, upper, size);
-}
-
-/**
- * heap_sort - ...
- * @array: given array
- * @size: array size
- */
 void heap_sort(int *array, size_t size)
 {
-	int i;
+	int last_parent_idx, i, tmp;
 
-	if (size < 2)
+	if (!array || size < 2)
 		return;
+
+	last_parent_idx = ((int)size - 1) / 2;
+	for (i = last_parent_idx; i >= 0; i--)
+	{
+		heapify(array, size, i, size);
+	}
 
 	for (i = size - 1; i > 0; i--)
 	{
-		heapify(array, i, i, size);
-		swap(array, 0, i, size);
+		tmp = array[0];
+		array[0] = array[i];
+		array[i] = tmp;
+		print_array(array, size);
+		heapify(array, i, 0, size);
 	}
 }
 
