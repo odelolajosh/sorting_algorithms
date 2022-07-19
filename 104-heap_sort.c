@@ -69,7 +69,7 @@ void heapify(int *array, size_t index, size_t upper, size_t size)
 			brother++;
 
 		max = current;
-		if (brother <= upper && array[brother] < array[current])
+		if (brother <= upper && array[brother] > array[current])
 			max = brother;
 
 		if (array[max] > array[parent])
@@ -78,7 +78,10 @@ void heapify(int *array, size_t index, size_t upper, size_t size)
 			sift_down(array, max, upper, size);
 		}
 		else
+		{
 			break;
+		}
+
 		current = parent;
 	}
 
