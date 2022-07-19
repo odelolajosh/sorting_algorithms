@@ -13,7 +13,7 @@ void print_sequence(int *array, int low, int high)
 
 	for (sep = ""; low <= high; low++)
 	{
-		printf("%s%d", sep, arr[low]);
+		printf("%s%d", sep, array[low]);
 		sep = ", ";
 	}
 	printf("\n");
