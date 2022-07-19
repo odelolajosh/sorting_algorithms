@@ -95,6 +95,9 @@ void heap_sort(int *array, size_t size)
 {
 	int i;
 
+	if (size < 2)
+		return;
+
 	for (i = size - 1; i > 0; i--)
 	{
 		heapify(array, i, i, size);
