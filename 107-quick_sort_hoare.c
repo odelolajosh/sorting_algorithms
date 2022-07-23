@@ -73,7 +73,8 @@ void _quicksort(int *array, size_t left, size_t right, size_t size)
 }
 
 /**
- * quick_sort - sorts an array with quick sort algorithm
+ * quick_sort_hoare - sorts an array of integers in
+ * ascending order using the Quick sort algorithm
  * @array: given array
  * @size: size of array
  */
